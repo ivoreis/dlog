@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "env": {
+    "RUNTIME_PUBLIC_VAR": "runtime-public-var"
+  },
+  "build": {
+    "env": {
+      "GITHUB_TOKEN": "@github-token"
+    }
+  }
+}

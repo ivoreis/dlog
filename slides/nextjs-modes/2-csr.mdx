@@ -1,0 +1,55 @@
+<Section>
+
+<Cover>
+
+# CSR
+
+Client Side Rendering
+
+</Cover>
+
+---
+
+# CSR
+
+<div className="pt-8"/>
+
+<Columns className="lg:grid-cols-2">
+
+<CodeSnippet language="js">
+{`
+import { NextPage } from 'next'
+import useSWR from 'swr'
+
+const Profile: NextPage = () => {
+  const { data, error } = useSWR('/api/user', fetcher)
+
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
+
+  return <div>hello {data.name}!</div>
+}
+
+`}
+</CodeSnippet>
+
+<div className="px-8">
+  <p>
+    Using <b>SWR</b> (or similar patterns) to fetch data on the client, will convert the <i>Profile page</i> to be <b>Client Side Rendered</b>. 
+  </p>
+  <p>
+    The first time the page renders, it will render a <b>loading message</b> but when the page hydrates and fetches data, it will render '<b>hello \{data.name\}</b>' if there's no loading error.
+  </p>
+</div>
+</Columns>
+
+--- 
+
+# Use cases
+
+- Quick prototyping
+- When SEO is not important
+- When is OK to show skeleton screens while data fetching  and/or data can progressively be fetched
+- When it would be faster to fetch and render data on the client than the server
+
+</Section>

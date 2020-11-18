@@ -1,0 +1,91 @@
+<Section>
+
+<Cover>
+
+# NextJS Render Modes
+
+CSR - SSR - SSG
+
+</Cover>
+
+---
+
+# Initialisms / What do they mean?
+
+#### CSR
+Client Side Rendering
+
+#### SSR
+Server Side Rendering
+
+#### SSG
+Static Site Generation
+
+---
+
+# Standard behaviour
+
+<div className="pt-2"/>
+
+<Columns className="lg:grid-cols-2">
+
+<CodeSnippet language="js">
+{`
+import { NextPage } from 'next'
+
+const MyPage: NextPage = () => {
+    return "Hello world!"
+}
+
+export default MyPage
+`}
+</CodeSnippet>
+
+<div className="px-8">
+  Any NextJS page is <b>pre-rendered</b> on the <i>server</i> and <b>hydrated</b> on the <i>client</i>, out-of-the-box, without extra configuration. 
+</div>
+
+</Columns>
+
+<div className="pt-8"/>
+
+<Columns className="lg:grid-cols-2">
+
+<CodeSnippet language="js">
+{`
+import { NextPage, NextPageContext } from 'next'
+
+const MyPage: NextPage<{name: string}> = (props) => {
+  const { name } = props;
+  
+  return \`Hello \${name}!\`
+}
+
+
+MyPage.getInitialProps = async (ctx: NextPageContext) => {
+  return {
+    name: 'world'
+  }
+}
+
+
+export default MyPage
+`}
+</CodeSnippet>
+
+<div className="px-8">
+  You can also add a static <b>getInitialProps</b> method to the <i>MyPage</i> that can be used
+  to fetch initial props (http requests are allowed here)
+  <br />
+  <br />
+
+  <b>Caveat</b>
+  This method will be called <b>both client</b> and <b>server side</b> so you need to 
+  pay extra attention not to "bundle" server only dependencies and data in your client bundle.
+</div>
+
+</Columns>
+
+
+
+</Section>
