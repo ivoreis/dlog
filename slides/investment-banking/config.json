@@ -1,0 +1,11 @@
+{
+  "title": "Investment Banking",
+  "description": "Investment Banking: 101",
+  "theme": "default",
+  "date": "2020-12-06",
+  "cover": "https://images.unsplash.com/photo-1559589689-577aabd1db4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=3150&q=80",
+  "transitions": {
+    "enabled": true,
+    "timing": 50
+  }
+}
