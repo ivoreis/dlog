@@ -4,12 +4,69 @@
 
 # SSG
 
+Static Site Generation
+
 </Cover>
 
 ---
 
-# SSG
+# SSG - Static Site Generation
 
-TODO
+<div className="pt-8"/>
+
+<Columns className="lg:grid-cols-2">
+
+<CodeSnippet language="js">
+{`
+import { NextPage } from 'next'
+
+const Profile: NextPage<{slug: string}> = (props) => {
+  const { slug } = props
+  return <div>Viewing {slug}!</div>
+}
+
+// generate all paths that needs to be generated
+export const getStaticPaths = async () => {
+  const res = await fetch('...')
+  const posts = await res.json()
+
+  const paths = posts.map((post) => ({
+    params: { slug: post.id },
+  }))
+
+  // fallback defines it should fallback (and show a loading indicator)
+  // or fail if path cannot be found
+  return { paths, fallback: false }
+}
+
+export const getStaticProps = async ({ params }) => {
+  const res = await fetch('') // use params.slug to fetch the data
+  const post = await res.json()
+  return { props: { post } }
+}
+`}
+</CodeSnippet>
+
+<div className="px-8">
+  This example demonstrate the use of two new methods: __getStaticPaths__ and __getStaticProps__. 
+
+  __getStaticPaths__ is used to create a list of all possible routes (paths) that will be generated. 
+  Then __getStaticProps__ is used to resolve or fetch the properties that are needed by the render method.
+</div>
+</Columns>
+
+--- 
+
+# SSG - Use cases
+
+You should use SSG if you have a finite number of pages that need to pre generated. When you build the NextJS application, 
+all these pages will be generated and once the build process is complete, all the generated pages will be available straight away
+to any requests. 
+
+You can still use __CSR__ methods to fetch new data on the client and keep all the data fresh.
+
+In case you need to have the best of both worlds (__SSR + SSG__), ie, pages generated at build time and still being able to regenerate once the underlined 
+resources change, you'll be better off enabling __ISG__ (Incremental Statis Regeneration).
 
 </Section>
+

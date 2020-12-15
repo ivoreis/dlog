@@ -4,12 +4,58 @@
 
 # SSR
 
+Server Side Rendering
+
 </Cover>
 
 ---
 
-# SSR
+# SSR - Server Side Rendering
 
-TODO
+<div className="pt-8"/>
+
+<Columns className="lg:grid-cols-2">
+
+<CodeSnippet language="js">
+{`
+import { NextPage } from 'next'
+
+const Profile: NextPage<{name: string}> = (props) => {
+  const { name } = props
+  return <div>hello {name}!</div>
+}
+
+export const getServerSideProps = async (context) => {
+  // this is an asyns method and is safe to use server tooling
+  return {
+    props: {
+      name: 'John Wick'
+    }, // will be passed to the page component as props
+  }
+}
+
+`}
+</CodeSnippet>
+
+<div className="px-8">
+  By including a new method called __getServerSideProps__ you'll be enabling the __SSR mode__ in NextJS. 
+
+  Doing this, it allows you to use server utilities like fetching directly from a database or invoking local API implementations.
+</div>
+</Columns>
+
+--- 
+
+# SSR - Use cases
+
+
+You should use __getServerSideProps__ only if you need to pre-render a 
+page whose data must be fetched at request time. 
+
+__Time to first byte (TTFB)__ will be slower than __getStaticProps__ because the server must 
+compute the result on every request, and the result __cannot be cached by a 
+CDN without extra configuration__.
+
+If you don’t need to pre-render the data, then you should consider fetching data on the client side.
 
 </Section>

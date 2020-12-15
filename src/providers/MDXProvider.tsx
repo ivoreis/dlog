@@ -1,5 +1,6 @@
 import React from 'react'
 import { MDXProvider } from '@mdx-js/react'
+import clsx from 'clsx'
 import SpeakerNotes from '~/components/SpeakerNotes'
 import Cover from '~/components/Cover'
 import Columns from '~/components/Columns'
@@ -23,6 +24,20 @@ const mdComponents = {
   Section,
   Columns,
   CodeSnippet,
+  Emphasis: (props) => {
+    const { children, ...rest } = props
+    return (
+      <span
+        {...rest}
+        className={clsx(
+          'transition duration-150 ease-in-out bg-invert text-invert px-2 rounded-lg',
+          rest.className,
+        )}
+      >
+        {children}
+      </span>
+    )
+  },
 }
 
 const MDX = ({ children }) => (

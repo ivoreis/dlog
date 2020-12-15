@@ -1,0 +1,72 @@
+<Section>
+
+<Cover>
+
+# ISG
+
+Incremental Static Regeneration
+
+</Cover>
+
+---
+
+# ISG - Incremental Static Regeneration
+
+<div className="pt-8"/>
+
+<Columns className="lg:grid-cols-2">
+
+<CodeSnippet language="js">
+{`
+import { NextPage } from 'next'
+
+const Profile: NextPage<{slug: string}> = (props) => {
+  const { slug } = props
+  return <div>Viewing {slug}!</div>
+}
+
+// generate all paths that needs to be generated
+export const getStaticPaths = async () => {
+  const res = await fetch('...')
+  const posts = await res.json()
+
+  const paths = posts.map((post) => ({
+    params: { slug: post.id },
+  }))
+
+  // fallback defines if it should fallback (and show a loading indicator)
+  // or fail if data is not found
+  return { paths, fallback: false }
+}
+
+export const getStaticProps = async ({ params }) => {
+  const res = await fetch('') // use params.slug to fetch the data
+  const post = await res.json()
+  return { 
+    props: { post },
+    // Next.js will attempt to re-generate the page:
+    // - when a request comes in
+    // - at most once every second
+    revalidate: 1, // in seconds
+  }
+}
+`}
+</CodeSnippet>
+
+<div className="px-8">
+  This example is very similar to SSG pattern with the difference of having the __revalidate__ flag. 
+  
+  This flag controls the rendering behaviour to use __ISG__ and will __serve pre-generated pages when they are available__, 
+  __fetch new ones when content doesn't exist yet__ and finally it __will revalidate the generated pages__ once every __X__ seconds.
+</div>
+</Columns>
+
+--- 
+
+# ISG - Use cases
+
+This pattern is useful when you need to have quick loading times (pre-generating pages) and at the same time you also have 
+content that is updated with some frequency. 
+
+</Section>
+
