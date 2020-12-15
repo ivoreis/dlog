@@ -7,5 +7,6 @@
   "transitions": {
     "enabled": true,
     "timing": 50
-  }
+  },
+  "visible": true
 }

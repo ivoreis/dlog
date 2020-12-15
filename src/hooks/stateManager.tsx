@@ -23,6 +23,7 @@ export interface Config {
   theme: Theme
   cover?: string
   transitions: { enabled: boolean; timing: number }
+  visible: Boolean
 }
 
 export const defaultConfig: Config = {
@@ -36,6 +37,7 @@ export const defaultConfig: Config = {
     enabled: false,
     timing: 50,
   },
+  visible: false
 }
 
 export interface StateManagerState {

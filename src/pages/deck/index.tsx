@@ -21,7 +21,7 @@ const HomeDeck = (props: DeckProps) => {
   const sortedDecks = decks.sort(
     (a, b) =>
       Date.parse(a.config.date || '0') - Date.parse(b.config.date || '0'),
-  )
+  ).filter(deck => deck.config.visible)
 
   return (
     <Fragment>
