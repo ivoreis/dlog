@@ -21,6 +21,8 @@ Client Side Rendering
 import { NextPage } from 'next'
 import useSWR from 'swr'
 
+const fetcher = (url: string) => fetch(url).then((r) => r.json())
+
 const Profile: NextPage = () => {
   const { data, error } = useSWR('/api/user', fetcher)
 

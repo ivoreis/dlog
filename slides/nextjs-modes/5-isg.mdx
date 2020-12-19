@@ -19,9 +19,18 @@ Incremental Static Regeneration
 <CodeSnippet language="js">
 {`
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 
 const Profile: NextPage<{slug: string}> = (props) => {
   const { slug } = props
+  const router = useRouter()
+
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
+
   return <div>Viewing {slug}!</div>
 }
 
@@ -36,7 +45,8 @@ export const getStaticPaths = async () => {
 
   // fallback defines if it should fallback (and show a loading indicator)
   // or fail if data is not found
-  return { paths, fallback: false }
+  // blocking means it should block/wait until the response comes back
+  return { paths, fallback: 'blocking' }
 }
 
 export const getStaticProps = async ({ params }) => {
